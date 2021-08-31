@@ -28,4 +28,4 @@ def information(url):
 
 if __name__ == '__main__':
     url = "https://www.douyin.com/user/MS4wLjABAAAAMRu1bNLgJf95web7lF6M5yFxBVD2NYhriO3XVlKZj0k"
-    print(information(url))
+    information(url)
