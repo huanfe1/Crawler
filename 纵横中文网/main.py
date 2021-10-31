@@ -50,6 +50,9 @@ def chapter_list(_self):
         # 去除VIP文章
         if str(i).find('vip') == -1:
             chapter_link.append(re.findall('href="(.*?)"', str(i))[0])
+        else:
+            print("接下来的内容需要VIP才能观看哦")
+            break
     return chapter_link
 
 
