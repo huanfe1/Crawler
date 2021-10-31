@@ -23,7 +23,7 @@ def chapter(chapter_url):
     for i in content:
         content0.append(i.string)
     content = str(tittle.string) + '\n' + '\n'.join(content0)
-    with open(novel_tittle + '//' + str(tittle.string) + '.txt', 'w') as file:
+    with open(novel_tittle + '//' + str(tittle.string) + '.txt', 'w', encoding='utf-8') as file:
         file.write(content)
 
 
@@ -42,7 +42,7 @@ def chapter_list(_self):
     info = tittle + '\n' + writer_info + '\n' + update
     if not os.path.exists(tittle):
         os.mkdir(tittle)
-    with open(tittle + "//" + "作者信息" + '.txt', "w") as file:
+    with open(tittle + "//" + "作者信息" + '.txt', "w", encoding='utf-8') as file:
         file.write(info)
     soup = BeautifulSoup(response, 'html.parser').find('div', {'class': 'volume-list'}).find_all('li')
     chapter_link = []
