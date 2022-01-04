@@ -5,12 +5,13 @@
 作者:幻非
 """
 
-import time
-import requests
-import re
 import os
+import re
+import threading
+import time
 
-url = 'http://jandan.net/top-4h'
+import requests
+
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
                   'Chrome/92.0.4515.159 Safari/537.36 '
@@ -19,15 +20,47 @@ headers = {
 if not os.path.exists("resources"):
     os.mkdir("resources")
 
-result = requests.get(url=url, headers=headers).text
-tabs = re.findall('<a href="(.*?)">(.*?)</a></div>', result)
-for i in tabs:
-    hot_tabs = os.path.dirname(url) + i[0]
-    result = requests.get(url=hot_tabs, headers=headers).text
+
+def save_pic(pic_url):
+    print(pic_url)
+    time.sleep(2)
+    pic_data = requests.get(url='https://' + pic_url, headers=headers).content
+    with open('resources' + '\\' + os.path.basename(pic_url), 'wb') as f:
+        f.write(pic_data)
+
+
+def get_pic(html_url):
+    time.sleep(2)
+    result = requests.get(url=html_url, headers=headers).text
     pic = re.findall('<p><a href="//(.*?)" target="_blank" class="view_img_link"', result)
+    threads = []
     for self in pic:
-        pic_data = requests.get(url='https://' + self, headers=headers).content
-        with open('resources' + '\\' + os.path.basename(self), mode='wb') as file:
-            file.write(pic_data)
-        print('https://' + self)
-        time.sleep(0.2)
+        threads.append(
+            threading.Thread(target=save_pic, args=(self,))
+        )
+
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join()
+
+
+urls = [
+    "http://jandan.net/top-tucao",
+    "http://jandan.net/top-tucao",
+    "http://jandan.net/top",
+    "http://jandan.net/top-ooxx",
+    "http://jandan.net/top-zoo",
+    "http://jandan.net/top-3days"
+]
+
+pic_threads = []
+for i in urls:
+    pic_threads.append(
+        threading.Thread(target=get_pic, args=(i, ))
+    )
+
+for pic_thread in pic_threads:
+    pic_thread.start()
+for pic_thread in pic_threads:
+    pic_thread.join()
