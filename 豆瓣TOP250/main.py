@@ -15,7 +15,9 @@ headers = {
 def craw(url):
     response = requests.get(url=url, headers=headers).text
     get_data = re.findall(r'<li>.*?<div class="item">.*? <em class="">(.*?)</em>.*?<span class="title">(.*?)'
-                          r'</span>.*?<p class="">.*?<br>(.*?)&nbsp', response, re.S)
+                          r'</span>.*?<p class="">.*?<br>(.*?)&nbsp.*?'
+                          r'property="v:average">(.*?)</span>.*?'
+                          r'<span class="inq">(.*?)</span>', response, re.S)
     for i in get_data:
         i = list(i)
         i[2] = re.findall(r'\d+', i[2])[0]
