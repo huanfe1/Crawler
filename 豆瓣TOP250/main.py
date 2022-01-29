@@ -6,6 +6,7 @@ import csv
 
 f = open('data.csv', 'w', newline='', encoding='utf-8')
 csv_write = csv.writer(f)
+csv_write.writerow(['排名', '名称', '年份', '评分', '评语'])
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
@@ -25,6 +26,6 @@ def craw(url):
         csv_write.writerow(i)
 
 
-for i in range(0, 250, 25):
-    craw(f'https://movie.douban.com/top250?start={i}')
+for page in range(0, 250, 25):
+    craw(f'https://movie.douban.com/top250?start={page}')
 f.close()
