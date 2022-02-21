@@ -4,7 +4,7 @@ import requests
 import re
 import csv
 
-f = open('data.csv', 'w', newline='', encoding='utf-8')
+f = open('resource/movie.csv', 'w', newline='', encoding='utf-8')
 csv_write = csv.writer(f)
 csv_write.writerow(['排名', '名称', '年份', '评分', '评语'])
 
