@@ -5,11 +5,12 @@
 作者:幻非
 """
 
+import os
+import re
 import time
+
 import requests
 from bs4 import BeautifulSoup
-import re
-import os
 
 
 def chapter(chapter_url):

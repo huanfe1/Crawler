@@ -5,11 +5,12 @@
 作者:幻非
 """
 
-import re
-import requests
-import string
-import random
 import os
+import random
+import re
+import string
+
+import requests
 
 try:
     os.mkdir('.\\resource')
