@@ -1,15 +1,10 @@
 # _*_ coding:utf-8 _*_
 
-"""
-时间:2021年11月28日
-作者:幻非
-"""
-
+import os
 import re
 import threading
-import requests
-import os
 
+import requests
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'

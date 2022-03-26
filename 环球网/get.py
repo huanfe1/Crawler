@@ -13,7 +13,7 @@ import string
 import requests
 
 try:
-    os.mkdir('.\\resource')
+    os.mkdir('.\\resources')
 except FileExistsError:
     pass
 
@@ -65,7 +65,7 @@ def data_edit(self):
             tittle = re.findall('<title>(.*?)</title><script', response)[0]
             get_data = tittle + '\n' + get_data
 
-            with open('resource\\' + tittle + '.txt', 'w', encoding='utf-8') as file:
+            with open('resources\\' + tittle + '.txt', 'w', encoding='utf-8') as file:
                 file.write(get_data)
 
 

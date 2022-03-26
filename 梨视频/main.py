@@ -1,8 +1,9 @@
 # _*_ coding:utf-8 _*_
 
-import requests
 import os
 import re
+
+import requests
 
 try:
     os.mkdir('resources')

@@ -1,6 +1,2 @@
-*.jpg
-*.png
-*.mp4
-*.txt
+*/resources
 *.pyc
-*.gif

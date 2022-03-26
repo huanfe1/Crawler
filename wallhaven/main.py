@@ -3,9 +3,10 @@ import os
 import random
 import re
 import time
-import requests
-import bs4
 from threading import Thread
+
+import bs4
+import requests
 
 try:
     os.mkdir('resources')

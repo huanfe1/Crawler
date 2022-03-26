@@ -1,8 +1,9 @@
 # _*_ coding:utf-8 _*_
 
-import requests
-import re
 import csv
+import re
+
+import requests
 
 f = open('resource/book.csv', 'w', newline='', encoding='utf-8')
 csv_write = csv.writer(f)

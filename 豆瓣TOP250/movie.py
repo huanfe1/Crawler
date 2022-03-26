@@ -1,8 +1,9 @@
 # -*- coding:utf-8 -*-
 
-import requests
-import re
 import csv
+import re
+
+import requests
 
 f = open('resource/movie.csv', 'w', newline='', encoding='utf-8')
 csv_write = csv.writer(f)
