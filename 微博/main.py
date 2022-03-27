@@ -8,12 +8,12 @@ import urllib.parse
 import requests
 
 
-def craw(url):
+def craw(url) -> list:
     """抓取网页内视频跟图片"""
     resources = []
     response = requests.get(url).json()
     if response['ok'] == 0:
-        return None
+        return []
     for card in response['data']['cards']:
         if 'pics' in card['mblog']:
             for pic in card['mblog']['pics']:
@@ -24,37 +24,43 @@ def craw(url):
     return resources
 
 
-def download(url):
+def download(url, author):
     """将资源下载到本地"""
     if 'media' in url:
         # url解码
         url = urllib.parse.unquote(url)
     name = url.split('/')[-1]
-    with open(f'resources\\{name}', 'wb') as file:
+    with open(f'resources\\{author}\\{name}', 'wb') as file:
         file.write(requests.get(url).content)
 
 
 def main():
     # 作者ID
     containerid = 2837256310
-    page = 1
+    page = 3
+    author_url = f'https://m.weibo.cn/api/container/getIndex?type=uid&value={containerid}&containerid=100505{containerid}'
+    author_name = requests.get(author_url).json()['data']['userInfo']['screen_name']
+    check_file(f'resources\\{author_name}')
     while True:
         url = f'https://m.weibo.cn/api/container/getIndex?containerid=107603{containerid}_-_WEIBO_SECOND_PROFILE_WEIBO&page={page}'
         res = craw(url)
         if not res:
             print('抓取结束')
             break
-        else:
-            print(url)
-            for i in res:
-                print(i)
-                time.sleep(random.random())
-                download(i)
+
+        for i in res:
+            print(i)
+            time.sleep(random.random())
+            download(i, author_name)
         time.sleep(random.randint(1, 3))
         page += 1
 
 
+def check_file(path):
+    if not os.path.exists(path):
+        os.mkdir(path)
+
+
 if __name__ == '__main__':
-    if not os.path.exists('resources'):
-        os.mkdir('resources')
+    check_file('resources')
     main()
