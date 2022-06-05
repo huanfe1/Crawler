@@ -24,7 +24,6 @@ def craw(li):
     print(img_url)
     with open(f'resources\\{img_id}.{img_type}', 'wb') as file:
         file.write(requests.get(url=img_url).content)
-    time.sleep(random.randint(1, 3))
 
 
 def main(url):
@@ -32,7 +31,8 @@ def main(url):
     soup = bs4.BeautifulSoup(response, features="html.parser")
     lis = soup.find('section', attrs={'class': 'thumb-listing-page'}).find_all('li')
     for li in lis:
+        time.sleep(random.randint(1, 3))
         Thread(target=craw, args=(li,)).start()
 
 
-main('https://wallhaven.cc/toplist?page=2')
+main('https://wallhaven.cc/toplist?page=6')
